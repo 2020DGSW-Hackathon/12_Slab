@@ -48,10 +48,19 @@ const StartContainer = observer(() => {
     console.log(data);
     if (pw !== rePw) {
       Swal.fire({
-        title: '비밀번호 안맞음',
-        text: '테스트',
+        title: '잠시만요',
+        text: '비밀번호를 확인해주세요.',
         icon: 'error',
       });
+      return;
+    }
+    if (!email.includes('@')) {
+      Swal.fire({
+        title: '잠시만요',
+        text: '이메일 형식이 이상해요.',
+        icon: 'error',
+      });
+      return;
     }
     try {
       const response = await handleRegister(data);
