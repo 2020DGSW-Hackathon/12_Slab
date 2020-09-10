@@ -9,11 +9,11 @@ import moment from 'moment';
 const data = [
   {
     type: '남은 예산',
-    value: 100000,
+    value: 10000,
   },
   {
     type: '사용한 예산',
-    value: 200000,
+    value: 20000,
   },
 ];
 
@@ -25,7 +25,7 @@ const config = {
   statistic: {
     visible: true,
     content: {
-      value: '300000',
+      value: '30000',
       name: '총 합계',
     },
   },
