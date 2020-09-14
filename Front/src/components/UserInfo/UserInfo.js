@@ -76,7 +76,9 @@ const UserInfo = ({ name, myApplyLabList }) => {
             <div className="UserInfo-Lab-TableTop-Item">결과</div>
           </div>
           <hr />
-          {ApplyListMap}
+          <div style={{ width: '100%', height: '270px', overflowY: 'auto' }}>
+            {ApplyListMap}
+          </div>
         </div>
         <div className="UserInfo-LabTitle">
           <img className="UserInfo-LabTitle-Icon" src={money} alt="" />

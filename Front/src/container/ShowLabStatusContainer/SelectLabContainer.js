@@ -9,18 +9,14 @@ import Swal from 'sweetalert2';
 const SelectLabContainer = observer(() => {
   const { store } = useStores();
   const { isSelectModal, selectLabModal } = store.ShowLabStatusStore;
-  const {
-    handleSelectLab,
-    handleApplyLab,
-    labList,
-    handleLabStatus,
-  } = store.SelectLabStore;
+
+  const { handleSelectLab, handleApplyLab, labList } = store.SelectLabStore;
+  const { handleLabStatus } = store.ShowLabStatusStore;
   const {
     handleUserInfo,
     handleUserApplyLab,
     myApplyLabList,
   } = store.UserInfoStore;
-  // const [allLab, setAllLab] = useState([]);
 
   const requestHandleSelectLab = useCallback(async () => {
     try {
@@ -31,30 +27,39 @@ const SelectLabContainer = observer(() => {
     }
   }, [handleSelectLab]);
 
-  const requestHandleApplyLab = useCallback(async (idx) => {
-    const request = {
-      isHave: '1',
-      date: moment().format('YYYY-MM-DD'),
-      whoMade: sessionStorage.getItem('id'),
-    };
+  const requestHandleApplyLab = useCallback(
+    async (idx) => {
+      const request = {
+        isHave: '1',
+        date: moment().format('YYYY-MM-DD'),
+        whoMade: sessionStorage.getItem('id'),
+      };
 
-    console.log(request);
-    try {
-      const response = await handleApplyLab(request, idx);
-      if (response.status === 200) {
-        Swal.fire({
-          title: '성공!',
-          text: '랩실 신청을 완료했습니다!',
-          icon: 'success',
-        });
-        handleSelectLab();
-        handleUserApplyLab();
-        handleLabStatus();
+      console.log(request);
+      try {
+        const response = await handleApplyLab(request, idx);
+        console.log(response);
+        if (response.status === 200) {
+          Swal.fire({
+            title: '성공!',
+            text: '랩실 신청을 완료했습니다!',
+            icon: 'success',
+          });
+          await selectLabModal();
+          await handleSelectLab();
+          await handleUserApplyLab();
+          console.log('1');
+          await handleLabStatus();
+          console.log('2');
+
+          // await
+        }
+      } catch (error) {
+        return error;
       }
-    } catch (error) {
-      return error;
-    }
-  });
+    },
+    [selectLabModal, handleSelectLab, handleUserApplyLab, handleLabStatus]
+  );
 
   useEffect(() => {
     requestHandleSelectLab();

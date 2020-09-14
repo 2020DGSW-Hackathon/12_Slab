@@ -21,9 +21,9 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-const ShowLabStatus = ({ usableLab, selectLabModal }) => {
+const ShowLabStatus = ({ labstatus, selectLabModal }) => {
   const status = {
-    width: `${usableLab * 7.1}%`,
+    width: `${parseInt(labstatus.length) * 7.1}%`,
   };
   return (
     <FadeIn delay={200}>
@@ -37,11 +37,13 @@ const ShowLabStatus = ({ usableLab, selectLabModal }) => {
           <div className="useable_area">
             <div className="useable_lab">
               <p className="useable_status">사용 가능 랩실</p>
-              <p className="useable_count">{usableLab}/14</p>
+              <p className="useable_count">{parseInt(labstatus.length)}/14</p>
             </div>
             <div className="useable_lab">
               <p className="useable_status">사용중인 랩실</p>
-              <p className="useable_count">{14 - usableLab}/14</p>
+              <p className="useable_count">
+                {14 - parseInt(labstatus.length)}/14
+              </p>
             </div>
           </div>
           <div className="unusable_chart">
